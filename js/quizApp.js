@@ -94,6 +94,7 @@ function showQuetions(index) {
   const que_text = document.querySelector(".que_text");
 
   //creating a new span and div tag for question and option and passing the value using array index
+  // self exercise: re-write the following using backtick syntax for string in JS instead of concatenation operator
   let que_tag =
     "<span>" +
     questions[index].numb +
@@ -113,8 +114,8 @@ function showQuetions(index) {
     '<div class="option"><span>' +
     questions[index].options[3] +
     "</span></div>";
-  que_text.innerHTML = que_tag; //adding new span tag inside que_tag
-  option_list.innerHTML = option_tag; //adding new div tag inside option_tag
+  que_text.innerHTML = que_tag; //adding new (child) span tag inside que_tag
+  option_list.innerHTML = option_tag; //adding new (child) div tag inside option_tag
 
   const option = option_list.querySelectorAll(".option");
 
@@ -123,7 +124,7 @@ function showQuetions(index) {
     option[i].setAttribute("onclick", "optionSelected(this)");
   }
 }
-// creating the new div tags which for icons
+// create new div tags for right or wrong tick icons
 let tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
 let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 
@@ -135,29 +136,29 @@ function optionSelected(answer) {
   let correcAns = questions[que_count].answer; //getting correct answer from array
   const allOptions = option_list.children.length; //getting all option items
 
+  //if user selected option is equal to array's correct answer
   if (userAns == correcAns) {
-    //if user selected option is equal to array's correct answer
-    userScore += 1; //upgrading score value with 1
-    answer.classList.add("correct"); //adding green color to correct selected option
-    answer.insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to correct selected option
+    userScore += 1; //update total score value increment by 1
+    answer.classList.add("correct"); //add green color to correct selected option
+    answer.insertAdjacentHTML("beforeend", tickIconTag); //add tick icon to correct selected option
     console.log("Correct Answer");
     console.log("Your correct answers = " + userScore);
   } else {
-    answer.classList.add("incorrect"); //adding red color to correct selected option
-    answer.insertAdjacentHTML("beforeend", crossIconTag); //adding cross icon to correct selected option
+    answer.classList.add("incorrect"); //add red color to correct selected option
+    answer.insertAdjacentHTML("beforeend", crossIconTag); //add cross icon to correct selected option
     console.log("Wrong Answer");
 
     for (i = 0; i < allOptions; i++) {
       if (option_list.children[i].textContent == correcAns) {
         //if there is an option which is matched to an array answer
-        option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
-        option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
+        option_list.children[i].setAttribute("class", "option correct"); //add green color to matched option
+        option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //add tick icon to matched option
         console.log("Auto selected correct answer.");
       }
     }
   }
   for (i = 0; i < allOptions; i++) {
-    option_list.children[i].classList.add("disabled"); //once user select an option then disable all options
+    option_list.children[i].classList.add("disabled"); //once user select an option, disable all options
   }
   next_btn.classList.add("show"); //show the next button if user selected any option
 }
@@ -170,14 +171,14 @@ function showResult() {
   const scoreText = result_box.querySelector(".score_text");
   if (userScore > 3) {
     // if user scored more than 3
-    //creating a new span tag and passing the user score number and total question number
+    //create a new span tag and pass the user score number and total question number
     let scoreTag =
       "<span>and congrats! , You got <p>" +
       userScore +
       "</p> out of <p>" +
       questions.length +
       "</p></span>";
-    scoreText.innerHTML = scoreTag; //adding new span tag inside score_Text
+    scoreText.innerHTML = scoreTag; //add new span tag inside score_Text
   } else if (userScore > 1) {
     // if user scored more than 1
     let scoreTag =
@@ -199,11 +200,11 @@ function showResult() {
   }
 }
 
-// controlling the timer and actions associated to it
+// control the timer and actions associated to it
 function startTimer(time) {
   counter = setInterval(timer, 1000);
   function timer() {
-    timeCount.textContent = time; //changing the value of timeCount with time value
+    timeCount.textContent = time; //change the value of timeCount with time value
     time--; //decrement the time value
     if (time < 9) {
       //if timer is less than 9
@@ -214,13 +215,13 @@ function startTimer(time) {
       //if timer is less than 0
       clearInterval(counter); //clear counter
       timeText.textContent = "Time Off"; //change the time text to time off
-      const allOptions = option_list.children.length; //getting all option items
-      let correcAns = questions[que_count].answer; //getting correct answer from array
+      const allOptions = option_list.children.length; //get all option items
+      let correcAns = questions[que_count].answer; //get correct answer from array
       for (i = 0; i < allOptions; i++) {
         if (option_list.children[i].textContent == correcAns) {
           //if there is an option which is matched to an array answer
-          option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
-          option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
+          option_list.children[i].setAttribute("class", "option correct"); //add green color to matched option
+          option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //add tick icon to matched option
           console.log("Time Off: Auto selected correct answer.");
         }
       }
